@@ -124,8 +124,12 @@ public class Parser {
             for (int i = 0; i < values.length(); i++) {
                 JSONObject it = values.getJSONObject(i);
                 int id = it.getInt("id");
-                String name = it.getString("fullName");
-                out.println(id + ", " + name);
+                try {
+                    String name = it.getString("fullName").toString();
+                    out.println(id + ", " + name);
+                } catch(Exception e) {
+                    out.println("error parsing: "+e.getMessage());
+                }
                 PrintWriter writer = new PrintWriter("reestr/"+id+"_.json", "UTF-8");
                 writer.println(it);
                 writer.close();
